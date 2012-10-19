@@ -1,0 +1,94 @@
+<OpenNI>
+	<Licenses>
+		<!-- Add application-specific licenses here 
+		<License vendor="vendor" key="key"/>
+		-->
+	</Licenses>
+	<!-- The OpenNI log can be used to glean more information on bug causes.
+	     writeToFile will create in the run directory a log directory which will have the log. By default in the editor the Log
+		 directory is located under the project directory (where Assets and Library are created)
+	     writeToConsole should remain false as it writes to the desktop console and not to the unity console-->
+	<Log writeToConsole="false" writeToFile="true">
+		<!-- 0 - Verbose, 1 - Info, 2 - Warning, 3 - Error (default) -->
+		<LogLevel value="0"/>
+		<Masks>
+			<Mask name="ALL" on="true"/>
+		</Masks>
+		<Dumps>
+		</Dumps>
+	</Log>
+	<ProductionNodes>
+		<!-- Uncomment following line, in order to run from a recording 
+		<Recording file="sampleRec.oni" />
+		-->
+	
+		<!-- Set global mirror -->
+		<GlobalMirror on="true"/>
+		
+		<!-- Create a depth node and give it a name alias (useful if referenced ahead in this script) -->
+		<Node type="Depth" name="MyDepth">
+			<Query>
+				<!-- Uncomment to filter by vendor name, product name, etc.
+				<Vendor>MyVendor inc.</Vendor>
+				<Name>MyProduct</Name>
+				<MinVersion>1.2.3.4</MinVersion>
+				<MaxVersion>1.2.3.4</MaxVersion>
+				<Capabilities>
+					<Capability>Cropping</Capability>
+				</Capabilities>
+				-->
+				<Vendor>PrimeSense</Vendor>
+				<Name>SensorV2</Name>
+				<MinVersion>5.0.5.1</MinVersion>
+			</Query>
+			<Configuration>
+				<!-- Uncomment to set requested mode
+				<MapOutputMode xRes="640" yRes="480" FPS="30"/> 
+				-->
+
+				<!-- Uncomment to override global mirror
+				<Mirror on="false" /> 
+				-->
+			</Configuration>
+		</Node>
+		
+		<!-- Create an image node. If it fails, continue anyway. -->
+		<Node type="Image" stopOnError="false" />
+
+		<!-- In order to make sure that the poses are supported (Wave, click) NITE depends on the gesture 
+		     generator. For other implementations, the gesture generator is not necessarily needed -->
+		<Node type="Gesture" name="MyGesture">
+			<Query>
+				<Vendor>PrimeSense</Vendor>
+				<Name>XnVGestureGenerator</Name>
+				<MinVersion>1.5.1.2</MinVersion>
+				<!-- we usually allow changes in maintenance and build versions but a minor version 
+				can cause behavioral changes -->
+				<MaxVersion>1.5.999.999</MaxVersion>
+			</Query>
+		</Node>
+		
+		<Node type="User" name="MyUser">
+			<Query>
+				<Vendor>PrimeSense</Vendor>
+				<Name>XnVSkeletonGenerator</Name>
+				<MinVersion>1.5.1.2</MinVersion>
+				<!-- we usually allow changes in maintenance and build versions but a minor version 
+				can cause behavioral changes -->
+				<MaxVersion>1.5.999.999</MaxVersion>
+				<!-- This makes the user node dependant on the specific gesture node. As stated before, 
+				     this is relevant to NITE implementations which require specific poses (Wave, Click) -->
+				<NeededNodes>
+					<Node>MyGesture</Node>
+				</NeededNodes>
+			</Query>
+		</Node>
+		<!-- Uncomment nodes from here if you need them.
+		<Node type="Audio" />
+		<Node type="Hands" />
+		<Node type="Gesture" />
+		<Node type="Scene" />
+		-->
+
+	</ProductionNodes>
+</OpenNI>

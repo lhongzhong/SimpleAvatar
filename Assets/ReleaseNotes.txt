@@ -1,0 +1,30 @@
+OpenNI Unity Toolkit 0.9.7
+December 8 2011
+Release notes
+
+Minimum requirements:
+---------------------
+* Unity editor 3.4.1 or higher (free or pro version)
+* An environment supporting both Unity and OpenNI
+* Currently only standalone windows versions were tested.
+
+
+Change Log:
+-----------
+OpenNI Unity Toolkit 0.9.7
+* Features and improvements
+  - Upgraded to new version of OpenNI and NITE
+  - Updated the player management capability and added support for user selection including several user selectors
+  - Added support for pose based gestures
+  - Changes and improvements to the query mechanism
+  - Playback of recordings streamlined
+  - Removed the need for the skeleton user manager (skeleton controller can integrade directly with player manager)
+  - Added wrapper and reference counting for pose detection
+  - Added example xml file
+  - Changed GUI sample to have GUI elements appear based on screen size
+  - Added warning when tracker description changes to remind user to relink.
+* Bug fixes
+  - Fixed bug which caused the scene to be dirty whenever NIInput inspector was used
+  - Fixed bug which caused playback to miss frames or get stuck
+
+	
